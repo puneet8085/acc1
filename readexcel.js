@@ -36,26 +36,49 @@ describe('read data from excel', function(){
          //return json object of given row. Note : row index start from 0 inplace of 1 
          //so if you want to print 6th row data in json format then in below line you need to pass row no as 5
          specificdataofrow= ReturnSpecificRowDataInJsonFormat(0)
-            console.log(specificdataofrow)
+            
+            browser.sleep(2000);
             element(by.id('id1')).sendKeys(specificdataofrow["fName"]);
             element(by.id('id2')).sendKeys(specificdataofrow["lName"]);
             element(by.id('id3')).sendKeys(specificdataofrow["Email"]);
             element(by.id('id4')).sendKeys(specificdataofrow["Password"]);
+            browser.sleep(1000);
             element(by.className('btn btn-primary btn-block')).click();
 
-            // if(element(by.id('d1').isPresent()))
-            // {
-            // var firstvalidation=element(by.id('d1')).getText();
-            // expect(firstvalidation).toEqual("Please enter data in required/requested format!");
-            // }
+            browser.sleep(9000)
 
 
-    //adding new key and value in json array. Syntex is jsonobject.newKey="value"
-specificdataofrow.TestCaseStatus ="pass";
+  element(by.id('d1')).isDisplayed().then(function(flag)
+            {
+                if(flag==true)
+                {
+                         
+                   expect(element(by.id('d1')).getText()).toEqual("Please enter data in required/requested format!");
+                 
+                   specificdataofrow.error1="fName-Please enter data in required/requested format!"
+                  }
+                 
+                  
+    console.log(specificdataofrow)
 
+                          
+            })
 
-
-//code to write back json array into new worksheet
+            element(by.id('d2')).isDisplayed().then(function(flag)
+            {
+                if(flag==true)
+                {
+                         
+                   expect(element(by.id('d2')).getText()).toEqual("Please enter data in required/requested format!");
+                 
+                   specificdataofrow.error2="lName-Please enter data in required/requested format!"
+                  }
+                  
+                  
+    console.log(specificdataofrow)
+    
+   
+              //code to write back json array into new worksheet
 
 //calling method which write back into same excel after appending a new sheet
 var writetoexcel=jsonToExcel()
@@ -76,6 +99,10 @@ function jsonToExcel()
 xlsx.writeFile(workbook,fileaddress)
 
 }
+            
+            })
+
+
 
 
 }) 
